@@ -1,0 +1,57 @@
+import * as Yup from "yup";
+
+export const loginFields = [
+  { label: "Email", name: "email", type: "email", placeholder: "Enter email" },
+  {
+    label: "Password",
+    name: "password",
+    type: "password",
+    placeholder: " Enter password",
+  },
+];
+
+export const signUpFields = [
+  {
+    label: "Username",
+    name: "userName",
+    type: "text",
+    placeholder: "Enter Username",
+  },
+  { label: "Email", name: "email", type: "email", placeholder: "Enter email" },
+  {
+    label: "Password",
+    name: "password",
+    type: "text",
+    placeholder: " Enter password",
+  },
+  {
+    label: "Confirm password",
+    name: "confirmPassword",
+    type: "password",
+    placeholder: " Enter password",
+  },
+];
+
+export const signupValidationSchema = Yup.object({
+  userName: Yup.string().required("Username is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    ),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), ""], "Passwords must match")
+    .required("Confirm Password is required"),
+});
+
+export const loginValidationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
