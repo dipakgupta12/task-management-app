@@ -1,19 +1,22 @@
 // Example usage
 
-import React, { useState } from "react";
+import React from "react";
 import CommonForm from "../Form/Form";
 import { loginFields, loginValidationSchema } from "./constants";
 import Heading from "../Heading";
 
+import { login } from "../../redux/actions/userActions";
+
 const LoginPage: React.FC = () => {
-  const [formValues, setFormValues] = useState({
+  const formValues = {
     email: "",
     password: "",
-  });
+  };
 
   const onSubmitForm = (values: { [key: string]: string }) => {
-    console.log(values);
-    // setFormValues(values);
+    console.log('=========', values.email, values.password)
+    login(values.email, values.password);
+   
   };
 
   return (
