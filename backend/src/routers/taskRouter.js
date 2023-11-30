@@ -1,6 +1,6 @@
-import { Router } from "express";
+import express from "express";
 
-const taskRouter = Router();
+const taskRouter = express.Router();
 
 taskRouter.use("/task", (req, res) => {
   res.send("task working");
