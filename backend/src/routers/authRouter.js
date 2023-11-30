@@ -1,9 +1,15 @@
 import { Router } from "express";
+import { authControllers } from "../controllers/index.js";
+import { authMiddleWare } from "../middlewares/index.js";
 
 const authRouter = Router();
 
-authRouter.use("/auth", (req, res) => {
-  res.send("auth working");
-});
+authRouter.post(
+  "/register",
+  authMiddleWare.registerMiddleware,
+  authControllers.registerController
+);
+authRouter.post("/login", authControllers.loginController);
+authRouter.get("/user-details", authControllers.getUserController);
 
 export default authRouter;
