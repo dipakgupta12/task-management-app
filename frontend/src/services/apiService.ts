@@ -39,7 +39,12 @@ export const authService = {
 export const taskService = {
   addTaskApi: async (task: Task) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/tasks/add`, task);
+      const response = await axios.post(`${API_BASE_URL}/task/create`, task, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken"),
+        },
+      });
+
       return response.data;
     } catch (error) {
       throw new Error("Add task failed");
@@ -60,7 +65,9 @@ export const taskService = {
 
   getTaskDetails: async (taskId: string) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/tasks/details/${taskId}`);
+      const response = await axios.get(
+        `${API_BASE_URL}/api/tasks/details/${taskId}`
+      );
       return response.data;
     } catch (error) {
       throw new Error("Get task details failed");

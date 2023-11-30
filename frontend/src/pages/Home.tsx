@@ -85,7 +85,10 @@ const Home = () => {
     setOnEditState(isEdit);
   };
 
-  const onSubmitForm = async (values: { [key: string]: string }) => {
+  const onSubmitForm = async (
+    values: { [key: string]: string },
+    { resetForm }: any
+  ) => {
     dispatch(addTask());
     const task = {
       title: values.title,
@@ -95,10 +98,11 @@ const Home = () => {
       const response = await taskService.addTaskApi(task);
       if (response.success) {
         dispatch(addTaskSuccess(response.data));
-
+        getTaskApi();
         toast.success(`${response.data.message}`);
         navigate("/");
         setIsOpenTaskModal(false);
+        resetForm();
       }
     } catch (error: any) {
       dispatch(addTaskFailure(error.message));
@@ -119,7 +123,7 @@ const Home = () => {
       <div className="max-w-[1240px] mx-auto">
         <div className="flex flex-wrap gap-5 items-center">
           {taskList?.length === 0 ? (
-            <p>Loading tasks...</p>
+            <Loader />
           ) : (
             taskList.map((task) => (
               <TaskListCard

@@ -1,5 +1,6 @@
 import React from "react";
 import CommonForm from "../Form/Form";
+import Heading from "../Heading";
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -29,9 +30,7 @@ const AddTaskModal: React.FC<DeleteModalProps> = ({
     >
       <div className="absolute inset-0 bg-gray-800 opacity-75"></div>
       <div className="relative bg-white rounded-lg p-8 w-96">
-        <h2 className="text-2xl text-[#01172c] font-semibold mb-4">
-         {!onEdit ? 'Add Task here' : 'Edit your task'}
-        </h2>
+        <Heading title={!onEdit ? "Add Task" : "Edit task"} />
         <CommonForm
           initialValues={formValues}
           validationSchema={addTaskValidationSchema}
