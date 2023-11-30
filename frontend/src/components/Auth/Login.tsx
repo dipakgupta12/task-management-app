@@ -5,18 +5,30 @@ import CommonForm from "../Form/Form";
 import { loginFields, loginValidationSchema } from "./constants";
 import Heading from "../Heading";
 
-import { login } from "../../redux/actions/userActions";
+
+import { useDispatch } from "react-redux";
+import { loginFailure, loginRequest, loginSuccess } from "../../redux/actions/userActions";
+import { authService } from "../../services/apiService";
 
 const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
   const formValues = {
     email: "",
     password: "",
   };
 
-  const onSubmitForm = (values: { [key: string]: string }) => {
-    console.log('=========', values.email, values.password)
-    login(values.email, values.password);
-   
+  const onSubmitForm = async (values: { [key: string]: string }) => {
+
+    dispatch(loginRequest());
+    try {
+      // Make API call using Axios
+      const response = await authService.login(values.email, values.password);
+      console.log(response);
+      dispatch(loginSuccess(response));
+
+    } catch (error: any) {
+      dispatch(loginFailure(error.message));
+    }
   };
 
   return (

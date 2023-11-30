@@ -1,26 +1,23 @@
 // apiService.ts
 import axios from "axios";
 
-const API_BASE_URL = "http://your-api-base-url";
+const API_BASE_URL = "https://jsonplaceholder.typicode.com/users";
 
 interface Task {
   id: string;
   title: string;
   description: string;
-
 }
 
 interface User {
   email: string;
   password: string;
-
 }
 
 export const authService = {
-  login: async (email: string, password: string): Promise<User> => {
+  login: async (email: string, password: string) => {
     try {
-      console.log('-------services')
-      const response = await axios.post(`${API_BASE_URL}/api/login`, {
+      const response = await axios.post(`${API_BASE_URL}`, {
         email,
         password,
       });

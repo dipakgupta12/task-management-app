@@ -1,31 +1,55 @@
 // taskActions.ts
-import { Dispatch } from 'redux';
-import { ADD_TASK, EDIT_TASK, DELETE_TASK } from './actionTypes';
-import { taskService } from '../../services/apiService';
 
-// export const addTask = (task: Task) => async (dispatch: Dispatch) => {
-//   try {
-//     const newTask = await taskService.addTask(task);
-//     dispatch({ type: ADD_TASK, payload: newTask });
-//   } catch (error) {
-//     console.error('Add task failed:', error);
-//   }
-// };
+import {
+  ADD_TASK_REQUEST,
+  EDIT_TASK_REQUEST,
+  DELETE_TASK_REQUEST,
+  ADD_TASK_SUCCESS,
+  ADD_TASK_FAILURE,
+  EDIT_TASK_SUCCESS,
+  EDIT_TASK_FAILURE,
+  DELETE_TASK_SUCCESS,
+  DELETE_TASK_FAILURE,
+} from "./actionTypes";
 
-// export const editTask = (task: Task) => async (dispatch: Dispatch) => {
-//   try {
-//     const updatedTask = await taskService.editTask(task);
-//     dispatch({ type: EDIT_TASK, payload: updatedTask });
-//   } catch (error) {
-//     console.error('Edit task failed:', error);
-//   }
-// };
+export const addTask = () => ({
+  type: ADD_TASK_REQUEST,
+});
 
-export const deleteTask = (taskId: string) => async (dispatch: Dispatch) => {
-  try {
-    await taskService.deleteTask(taskId);
-    dispatch({ type: DELETE_TASK, payload: taskId });
-  } catch (error) {
-    console.error('Delete task failed:', error);
-  }
-};
+export const loginSuccess = (user: any) => ({
+  type: ADD_TASK_SUCCESS,
+  payload: user,
+});
+
+export const loginFailure = (error: any) => ({
+  type: ADD_TASK_FAILURE,
+  payload: error,
+});
+
+export const editTask = () => ({
+  type: EDIT_TASK_REQUEST,
+});
+
+export const signupSuccess = (user: any) => ({
+  type: EDIT_TASK_SUCCESS,
+  payload: user,
+});
+
+export const signupFailure = (error: any) => ({
+  type: EDIT_TASK_FAILURE,
+  payload: error,
+});
+
+export const deleteTask = () => ({
+  type: DELETE_TASK_REQUEST,
+});
+
+export const deleteTaskSuccess = (user: any) => ({
+  type: DELETE_TASK_SUCCESS,
+  payload: user,
+});
+
+export const deleteTaskFailure = (error: any) => ({
+  type: DELETE_TASK_FAILURE,
+  payload: error,
+});

@@ -1,8 +1,19 @@
-// actionTypes.ts
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const SIGNUP = 'SIGNUP';
-export const ADD_TASK = 'ADD_TASK';
-export const EDIT_TASK = 'EDIT_TASK';
-export const DELETE_TASK = 'DELETE_TASK';
-export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+
+export const ADD_TASK_REQUEST = 'ADD_TASK_REQUEST';
+export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
+export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE';
+
+export const EDIT_TASK_REQUEST = 'EDIT_TASK';
+export const EDIT_TASK_SUCCESS = 'EDIT_TASK_SUCCESS';
+export const EDIT_TASK_FAILURE = 'EDIT_TASK_FAILURE';
+
+export const DELETE_TASK_REQUEST = 'DELETE_TASK';
+export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
+export const DELETE_TASK_FAILURE = 'DELETE_TASK_FAILURE';
