@@ -87,9 +87,13 @@ export const taskService = {
     }
   },
 
-  deleteTaskApi: async (taskId: string): Promise<void> => {
+  deleteTaskApi: async (taskId: number): Promise<void> => {
     try {
-      await axios.delete(`${API_BASE_URL}/api/tasks/delete/${taskId}`);
+      await axios.delete(`${API_BASE_URL}/task/${taskId}`, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken"),
+        },
+      });
     } catch (error) {
       throw new Error("Delete task failed");
     }

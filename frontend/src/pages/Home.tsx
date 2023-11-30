@@ -61,22 +61,21 @@ const Home = () => {
   };
 
   const handleDelete = async (id: number) => {
-    // deine delete functionality
-
     dispatch(deleteTask());
     try {
-      // Make API call using Axios
-      const response = await taskService.deleteTaskApi("1");
-      console.log(response);
+      const response = await taskService.deleteTaskApi(id);
       dispatch(deleteTaskSuccess(response));
+      getTaskApi();
+      setIsOpenDeleteModal(false);
       navigate("/");
     } catch (error: any) {
       dispatch(deleteTaskFailure(error.message));
     }
   };
 
-  const openisOpenDeleteModal = () => {
+  const openisOpenDeleteModal = (id: number) => {
     setIsOpenDeleteModal(true);
+    setOnTaskId(id);
   };
 
   const showTaskModal = (isEdit: boolean, id?: number) => {
@@ -143,6 +142,7 @@ const Home = () => {
         isOpen={isOpenDeleteModal}
         onCancel={() => setIsOpenDeleteModal(false)}
         onDelete={handleDelete}
+        taskId={taskId}
       />
       <AddTaskModal
         isOpen={isOpenTaskModal}

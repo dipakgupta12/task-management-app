@@ -8,7 +8,7 @@ interface TaskListCardProps {
   title: string;
   description: string;
   dueDate: string;
-  isOpenDeleteModal: () => void;
+  isOpenDeleteModal: any;
   showTaskModal: (isEdit: boolean, id: number) => void;
 }
 
@@ -32,7 +32,7 @@ const TaskListCard: React.FC<TaskListCardProps> = ({
       </p>
       <div className="absolute bottom-4 right-5 flex gap-3">
         <img
-          onClick={isOpenDeleteModal}
+          onClick={() => isOpenDeleteModal(id)}
           className="w-6 h-6 cursor-pointer"
           alt="delete"
           src={allImages.deleteIcon}
