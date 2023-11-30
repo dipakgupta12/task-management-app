@@ -12,4 +12,16 @@ taskRouter.post(
   taskControllers.createTaskController
 );
 
+taskRouter.get(
+  "/get-all",
+  authMiddleWare.authenticateToken,
+  taskControllers.getAllTaskController
+);
+
+taskRouter.get(
+  "/:taskId",
+  authMiddleWare.authenticateToken,
+  taskControllers.getSingleTaskController
+);
+
 export default taskRouter;
