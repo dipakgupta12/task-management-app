@@ -69,7 +69,11 @@ export const taskService = {
 
   getTasksApi: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/tasks`);
+      const response = await axios.get(`${API_BASE_URL}/task/get-all`, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken"),
+        },
+      });
       return response.data;
     } catch (error) {
       // throw new Error("Get tasks failed");

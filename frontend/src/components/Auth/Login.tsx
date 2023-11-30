@@ -15,6 +15,7 @@ import {
 
 import { authService } from "../../services/apiService";
 import { toast } from "react-toastify";
+import { buttonType } from "../../utils/constants";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -28,8 +29,6 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    // If the user is already authenticated, redirect them to the home page
-
     if (isAuthenticated || isUserAuthenticated) {
       navigate("/");
     }
@@ -44,7 +43,7 @@ const LoginPage = () => {
         localStorage.setItem("user", JSON.stringify(response.data));
         localStorage.setItem(
           "jwtToken",
-          JSON.stringify("Bearer " + response.data.token)
+          JSON.stringify(`Bearer ${response.data.token}`)
         );
         toast.success(`${response.data.message}`);
         navigate("/");
@@ -55,17 +54,17 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center py-6 mt-24">
-      <div className="bg-gray-50 rounded-lg p-6 rounded shadow-lg w-60 w-1/3">
-        <Heading title="Welcome back" className="text-center mb-5" />
+    <div className="flex items-center justify-center py-6 mt-10">
+      <div className="bg-gray-50 rounded-md p-6 shadow-md w-1/3">
+        <Heading title="Sign in" className="text-center mb-5" />
         <CommonForm
           initialValues={formValues}
           validationSchema={loginValidationSchema}
           onSubmit={onSubmitForm}
           inputFields={loginFields}
           formStyle="flex flex-col"
-          buttonText="Login"
-          buttonStyle="bg-blue-300  py-2 border-blue-500"
+          buttonText="Sign in"
+          buttonStyle={buttonType.primary}
         />
       </div>
     </div>

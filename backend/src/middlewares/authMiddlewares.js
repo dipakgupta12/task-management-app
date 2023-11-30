@@ -38,7 +38,7 @@ export const authMiddleWare = {
   },
 
   authenticateToken: (req, res, next) => {
-    const token = req.header("Authorization")?.split(" ")[1];
+    const token = req.header("Authorization")?.split(" ")[1]?.replace('"', '');
     if (!token)
       return res
         .status(401)

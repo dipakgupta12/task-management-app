@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { buttonType } from "../../utils/constants";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,10 @@ const SignUp = () => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
   useEffect(() => {
-    // If the user is already authenticated, redirect them to the home page
-
     if (isAuthenticated || isUserAuthenticated) {
       navigate("/");
     }
@@ -34,10 +34,8 @@ const SignUp = () => {
 
   const onSubmitForm = async (values: { [key: string]: string }) => {
 
-    // setFormValues(values);
     dispatch(signupRequest());
     try {
-      // Make API call using Axios
       const response = await authService.signup(values.name, values.email, values.password);
 
       if (response.success) {
@@ -53,7 +51,7 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center py-6 mt-10">
-      <div className="bg-gray-50 rounded-md p-6 rounded shadow-md w-1/3">
+      <div className="bg-gray-50 rounded-md p-6 shadow-md w-1/3">
         <Heading title="Sign up" className="text-center text-[#01172c] mb-5" />
         <CommonForm
           initialValues={formValues}
@@ -62,7 +60,7 @@ const SignUp = () => {
           inputFields={signUpFields}
           formStyle="flex flex-col"
           buttonText="Sign up"
-          buttonStyle="bg-blue-300  py-2 border-blue-500"
+          buttonStyle={buttonType.primary}
         />
       </div>
     </div>

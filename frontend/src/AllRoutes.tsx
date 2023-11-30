@@ -5,6 +5,7 @@ import SignUp from "./components/Auth/SignUp";
 import Login from "./components/Auth/Login";
 import NotFound from "./pages/404";
 import { useSelector } from "react-redux";
+import { Profile } from "./pages/Profile";
 
 const AllRoutes = () => {
   const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
@@ -23,6 +24,7 @@ const AllRoutes = () => {
       <Route path="/" element={isAuthenticated || isUserAuthenticated ? <Home /> : <Navigate to="/signin" />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<Login />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

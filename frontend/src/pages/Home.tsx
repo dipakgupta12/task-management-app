@@ -20,11 +20,19 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { taskService } from "../services/apiService";
 import { toast } from "react-toastify";
+import Heading from "../components/Heading";
+
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  created_at: string;
+}
 
 const Home = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
-  const [tastList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState<Task[]>([]);
   const [onEditState, setOnEditState] = useState(false);
   const [taskId, setOnTaskId] = useState<number>();
 
@@ -42,12 +50,12 @@ const Home = () => {
 
   useEffect(() => {
     console.log("taskId----", taskId);
-  }, [taskId])
+  }, [taskId]);
 
   const getTaskApi = async () => {
     dispatch(getTasks());
     const response = await taskService.getTasksApi();
-    setTaskList(response);
+    setTaskList(response?.data?.tasks);
     dispatch(deleteTaskSuccess(response));
     navigate("/");
   };
@@ -73,27 +81,11 @@ const Home = () => {
 
   const showTaskModal = (isEdit: boolean, id?: number) => {
     setIsOpenTaskModal(true);
-    setOnTaskId(id)
+    setOnTaskId(id);
     setOnEditState(isEdit);
   };
 
-  const tasks = [
-    {
-      id: 1,
-      title: "Task 1",
-      description: "Description 1",
-      dueDate: "2023-12-01",
-    },
-    {
-      id: 2,
-      title: "Task 2",
-      description: "Description 2",
-      dueDate: "2023-12-15",
-    },
-  ];
-
   const onSubmitForm = async (values: { [key: string]: string }) => {
-    console.log(values);
     dispatch(addTask());
     const task = {
       title: values.title,
@@ -116,9 +108,7 @@ const Home = () => {
   return (
     <div className="max-w-[1200px] mx-auto">
       <div className="flex justify-between items-center w-full py-5">
-        <h2 className="text-2xl font-semibold text-[#01172c] mb-4">
-          Your Task List
-        </h2>
+        <Heading title="All Tasks" className="" />
         <button
           className=" px-4 py-2 text-white bg-[#01172c] rounded-md"
           onClick={() => showTaskModal(false)}
@@ -128,16 +118,16 @@ const Home = () => {
       </div>
       <div className="max-w-[1240px] mx-auto">
         <div className="flex flex-wrap gap-5 items-center">
-          {tasks.length === 0 ? (
-            <Loader />
+          {taskList?.length === 0 ? (
+            <p>Loading tasks...</p>
           ) : (
-            tasks.map((task) => (
+            taskList.map((task) => (
               <TaskListCard
-                id={task.id}
-                key={task.id}
-                title={task.title}
-                description={task.description}
-                dueDate={task.dueDate}
+                id={task?.id}
+                key={task?.id}
+                title={task?.title}
+                description={task?.description}
+                dueDate={task?.created_at}
                 isOpenDeleteModal={openisOpenDeleteModal}
                 showTaskModal={showTaskModal}
               />
