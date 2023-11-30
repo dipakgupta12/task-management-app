@@ -35,7 +35,7 @@ export const task = {
   getAllTaskController: async (req, res) => {
     try {
       const userId = req.params?.userId;
-      
+
       const [tasks] = await db.execute(
         "SELECT * FROM tasks WHERE user_id = ?",
         [userId]
@@ -71,6 +71,39 @@ export const task = {
 
       const response = {
         task: task[0],
+      };
+
+      return apiResponse.success(res, response);
+    } catch (error) {
+      return apiResponse.error(res, { error });
+    }
+  },
+
+  updateTaskController: async (req, res) => {
+    try {
+      const taskId = req.params.taskId;
+      const userId = req.params.userId;
+      const { title, description } = req.body;
+
+      const [existingTask] = await db.execute(
+        "SELECT * FROM tasks WHERE id = ? AND user_id = ?",
+        [taskId, userId]
+      );
+
+      if (existingTask.length === 0) {
+        const response = {
+          message: "Task not found for the specified user",
+        };
+        return apiResponse.error(res, response, 404);
+      }
+
+      await db.execute(
+        "UPDATE tasks SET title = ?, description = ? WHERE id = ? AND user_id = ?",
+        [title, description, taskId, userId]
+      );
+
+      const response = {
+        message: "Task updated successfully",
       };
 
       return apiResponse.success(res, response);

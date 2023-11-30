@@ -24,4 +24,11 @@ taskRouter.get(
   taskControllers.getSingleTaskController
 );
 
+taskRouter.put(
+  "/:taskId",
+  taskMiddleWare.createTaskMiddleware,
+  authMiddleWare.authenticateToken,
+  taskControllers.updateTaskController
+);
+
 export default taskRouter;
