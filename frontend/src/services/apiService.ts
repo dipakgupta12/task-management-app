@@ -1,7 +1,8 @@
 // apiService.ts
 import axios from "axios";
+import { toast } from "react-toastify";
 
-const API_BASE_URL = "https://jsonplaceholder.typicode.com/users";
+const API_BASE_URL = "http://localhost:8080/api";
 
 interface Task {
   id: string;
@@ -9,34 +10,29 @@ interface Task {
   description: string;
 }
 
-interface User {
-  email: string;
-  password: string;
-}
-
 export const authService = {
   login: async (email: string, password: string) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}`, {
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password,
       });
       return response.data;
-    } catch (error) {
-      throw new Error("Login failed");
+    } catch (error: any) {
+      toast.error(error.response.data.data.message)
     }
   },
 
-  signup: async (name: string, email: string, password: string): Promise<User> => {
+  signup: async (name: string, email: string, password: string) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/signup`, {
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, {
         name,
         email,
         password,
       });
       return response.data;
-    } catch (error) {
-      throw new Error("Signup failed");
+    } catch (error: any) {
+      toast.error(error.response.data.data.message)
     }
   },
 };

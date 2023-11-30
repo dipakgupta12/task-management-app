@@ -14,6 +14,7 @@ import {
 } from "../../redux/actions/userActions";
 
 import { authService } from "../../services/apiService";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -28,9 +29,8 @@ const LoginPage = () => {
 
   useEffect(() => {
     // If the user is already authenticated, redirect them to the home page
-    
+
     if (isAuthenticated || isUserAuthenticated) {
-      console.log("====");
       navigate("/");
     }
   }, [isAuthenticated, isUserAuthenticated, navigate]);
@@ -38,12 +38,17 @@ const LoginPage = () => {
   const onSubmitForm = async (values: { [key: string]: string }) => {
     dispatch(loginRequest());
     try {
-      // Make API call using Axios
       const response = await authService.login(values.email, values.password);
-      console.log(response);
-      dispatch(loginSuccess(response));
-      localStorage.setItem("user", JSON.stringify(response));
-      navigate("/");
+      if (response.success) {
+        dispatch(loginSuccess(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem(
+          "jwtToken",
+          JSON.stringify("Bearer " + response.data.token)
+        );
+        toast.success(`${response.data.message}`);
+        navigate("/");
+      }
     } catch (error: any) {
       dispatch(loginFailure(error.message));
     }

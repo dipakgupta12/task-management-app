@@ -1,11 +1,13 @@
 // Header file
 
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../redux/actions/userActions";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
@@ -20,7 +22,9 @@ const Header: React.FC = () => {
     localStorage.removeItem("user");
     // Close the dropdown after logout
     setDropdownOpen(false);
+    dispatch(logout());
     navigate("/signin");
+    
   };
 
   const getFirstLetter = (email: string) => {
@@ -30,7 +34,7 @@ const Header: React.FC = () => {
   return (
     <header className="bg-[#01172c] p-4">
       <div className="container max-w-[1200px] mx-auto flex items-center justify-between">
-        <Link to="/" className="text-[#fff] md:text-2xl text-md font-semibold">
+        <Link to={isUserAuthenticated ? "/" : "/signin"} className="text-[#fff] md:text-2xl text-md font-semibold">
           Task Master
         </Link>
 

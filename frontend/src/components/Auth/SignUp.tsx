@@ -10,6 +10,7 @@ import {
 } from "../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -27,21 +28,24 @@ const SignUp = () => {
     // If the user is already authenticated, redirect them to the home page
 
     if (isAuthenticated || isUserAuthenticated) {
-      console.log("====");
       navigate("/");
     }
   }, [isAuthenticated, isUserAuthenticated, navigate]);
 
   const onSubmitForm = async (values: { [key: string]: string }) => {
-    console.log(values);
+
     // setFormValues(values);
     dispatch(signupRequest());
     try {
       // Make API call using Axios
       const response = await authService.signup(values.name, values.email, values.password);
-      console.log(response);
-      dispatch(signupSuccess(response));
-      navigate("/signin");
+
+      if (response.success) {
+        dispatch(signupSuccess(response.data));
+        toast.success(`${response.data.message}`);
+        navigate("/signin");
+      }
+
     } catch (error: any) {
       dispatch(signupFailure(error.message));
     }

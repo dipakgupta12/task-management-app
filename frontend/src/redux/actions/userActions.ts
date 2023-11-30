@@ -6,7 +6,8 @@ import {
   LOGIN_FAILURE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE
+  SIGNUP_FAILURE,
+  LOGOUT
 } from "./actionTypes";
 
 export const loginRequest = () => ({
@@ -35,4 +36,8 @@ export const signupSuccess = (user: any) => ({
 export const signupFailure = (error: any) => ({
   type: SIGNUP_FAILURE,
   payload: error,
+});
+
+export const logout = () => ({
+  type: LOGOUT,
 });
