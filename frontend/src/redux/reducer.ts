@@ -12,6 +12,7 @@ import {
     user: [],
     loading: false,
     error: null,
+    isAuthenticated: false
   };
   
   export const authReducer = (state = initialState, action: any) => {
@@ -25,11 +26,11 @@ import {
         };
       case LOGIN_SUCCESS:
       case SIGNUP_SUCCESS:
-        console.log(action.payload,"from auth reducer----")
         return {
           
           ...state,
           user: action.payload,
+          isAuthenticated: true,
           loading: false,
           error: null,
         };

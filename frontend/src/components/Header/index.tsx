@@ -1,11 +1,15 @@
 // Header file
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const isAuthenticated = false;
+
+  const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
+  const isUserAuthenticated = localStorage.getItem("user") !== null;
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -13,9 +17,14 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     // Implement your logout logic here
-    console.log("Logout clicked");
+    localStorage.removeItem("user");
     // Close the dropdown after logout
     setDropdownOpen(false);
+    navigate("/signin");
+  };
+
+  const getFirstLetter = (email: string) => {
+    return email ? email[0].toUpperCase() : "";
   };
 
   return (
@@ -25,14 +34,15 @@ const Header: React.FC = () => {
           Task Master
         </Link>
 
-        {isAuthenticated ? (
+        {isAuthenticated || isUserAuthenticated ? (
           <div className="flex justify-center items-center">
             <p className="ml-2 text-black-500">Welcome, User</p>
             <div
               onClick={toggleDropdown}
               className="cursor-pointer rounded-full w-12 h-12 bg-red-300 flex items-center justify-center text-blue-800 text-2xl font-bold ml-3"
             >
-              A
+               {/* {getFirstLetter(user.email)} */}
+               A
             </div>
             {isDropdownOpen && (
               <div className="absolute top-12 right-0 bg-white border rounded shadow-md">

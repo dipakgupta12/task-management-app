@@ -12,10 +12,10 @@ export const loginFields = [
 
 export const signUpFields = [
   {
-    label: "Username",
-    name: "userName",
+    label: "Name",
+    name: "name",
     type: "text",
-    placeholder: "Enter Username",
+    placeholder: "Enter name",
   },
   { label: "Email", name: "email", type: "email", placeholder: "Enter email" },
   {
@@ -33,7 +33,7 @@ export const signUpFields = [
 ];
 
 export const signupValidationSchema = Yup.object({
-  userName: Yup.string().required("Username is required"),
+  name: Yup.string().required("name is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),

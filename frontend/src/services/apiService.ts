@@ -27,10 +27,10 @@ export const authService = {
     }
   },
 
-  signup: async (username: string, password: string): Promise<User> => {
+  signup: async (name: string, password: string): Promise<User> => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/signup`, {
-        username,
+        name,
         password,
       });
       return response.data;

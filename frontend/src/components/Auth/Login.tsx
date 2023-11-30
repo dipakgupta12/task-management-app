@@ -1,31 +1,49 @@
 // Example usage
 
-import React from "react";
+import React, { useEffect } from "react";
 import CommonForm from "../Form/Form";
 import { loginFields, loginValidationSchema } from "./constants";
 import Heading from "../Heading";
 
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginFailure,
+  loginRequest,
+  loginSuccess,
+} from "../../redux/actions/userActions";
 
-import { useDispatch } from "react-redux";
-import { loginFailure, loginRequest, loginSuccess } from "../../redux/actions/userActions";
 import { authService } from "../../services/apiService";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
+  const isUserAuthenticated = localStorage.getItem("user") !== null;
+
   const formValues = {
     email: "",
     password: "",
   };
 
-  const onSubmitForm = async (values: { [key: string]: string }) => {
+  useEffect(() => {
+    // If the user is already authenticated, redirect them to the home page
+    
+    if (isAuthenticated || isUserAuthenticated) {
+      console.log("====");
+      navigate("/");
+    }
+  }, [isAuthenticated, isUserAuthenticated, navigate]);
 
+  const onSubmitForm = async (values: { [key: string]: string }) => {
     dispatch(loginRequest());
     try {
       // Make API call using Axios
       const response = await authService.login(values.email, values.password);
       console.log(response);
       dispatch(loginSuccess(response));
-
+      localStorage.setItem("user", JSON.stringify(response));
+      navigate("/");
     } catch (error: any) {
       dispatch(loginFailure(error.message));
     }

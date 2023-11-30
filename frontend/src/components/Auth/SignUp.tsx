@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import Heading from "../Heading";
 import CommonForm from "../Form/Form";
 import { signUpFields, signupValidationSchema } from "./constants";
 
 const SignUp = () => {
-  const [formValues, setFormValues] = useState({
-    userName: "",
+  const formValues = {
+    name: "",
     email: "",
     password: "",
-  });
+  };
 
   const onSubmitForm = (values: { [key: string]: string }) => {
     console.log(values);
     // setFormValues(values);
   };
+  
   return (
     <div className="flex items-center justify-center py-6">
       <div className="bg-gray-50 rounded-md p-6 rounded shadow-md w-60">
