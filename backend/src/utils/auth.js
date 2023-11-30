@@ -13,9 +13,7 @@ export const hashAuth = {
   },
 
   generateToken: (payload) => {
-    return jwt.sign(payload, process.env.MY_SECURITY_TOKEN_KEY, {
-      expiresIn: "21d",
-    });
+    return jwt.sign(payload, process.env.MY_SECURITY_TOKEN_KEY, {});
   },
 
   verifyToken: (token) => {

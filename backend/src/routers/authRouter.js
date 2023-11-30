@@ -10,6 +10,10 @@ authRouter.post(
   authControllers.registerController
 );
 authRouter.post("/login", authControllers.loginController);
-authRouter.get("/user-details", authControllers.getUserController);
+authRouter.get(
+  "/user-details",
+  authMiddleWare.authenticateToken,
+  authControllers.getUserController
+);
 
 export default authRouter;

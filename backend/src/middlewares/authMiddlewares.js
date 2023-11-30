@@ -47,7 +47,7 @@ export const authMiddleWare = {
     const decoded = hashAuth.verifyToken(token);
     if (!decoded)
       return res.status(401).json({ success: false, message: "Invalid token" });
-    req.params.userId = decoded?.userId;
+    req.params.userId = decoded;
     next();
   },
 };
