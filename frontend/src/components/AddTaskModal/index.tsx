@@ -4,23 +4,23 @@ import CommonForm from "../Form/Form";
 interface DeleteModalProps {
   isOpen: boolean;
   onCancel: () => void;
-  onDelete: (id: number) => void;
-  onSubmitForm: () => void;
-  formValues: {},
-  addTaskValidationSchema: any 
+  onSubmitForm: any;
+  formValues: {};
+  addTaskValidationSchema?: any;
   addTaskFields: any;
+  onEdit: boolean
 }
 
 const AddTaskModal: React.FC<DeleteModalProps> = ({
   isOpen,
   onCancel,
-  onDelete,
   formValues,
   addTaskValidationSchema,
   addTaskFields,
-  onSubmitForm
+  onSubmitForm,
+  onEdit
 }) => {
-  
+
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center z-50 ${
@@ -29,7 +29,9 @@ const AddTaskModal: React.FC<DeleteModalProps> = ({
     >
       <div className="absolute inset-0 bg-gray-800 opacity-75"></div>
       <div className="relative bg-white rounded-lg p-8 w-96">
-        <h2 className="text-2xl text-[#01172c] font-semibold mb-4">Add Task here</h2>
+        <h2 className="text-2xl text-[#01172c] font-semibold mb-4">
+         {!onEdit ? 'Add Task here' : 'Edit your task'}
+        </h2>
         <CommonForm
           initialValues={formValues}
           validationSchema={addTaskValidationSchema}

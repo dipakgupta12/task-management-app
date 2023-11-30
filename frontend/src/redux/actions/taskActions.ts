@@ -10,7 +10,12 @@ import {
   EDIT_TASK_FAILURE,
   DELETE_TASK_SUCCESS,
   DELETE_TASK_FAILURE,
+  GET_TASK_REQUEST,
 } from "./actionTypes";
+
+export const getTasks = () => ({
+  type: GET_TASK_REQUEST,
+});
 
 export const addTask = () => ({
   type: ADD_TASK_REQUEST,
@@ -21,7 +26,7 @@ export const addTaskSuccess = (user: any) => ({
   payload: user,
 });
 
-export const loginFailure = (error: any) => ({
+export const addTaskFailure = (error: any) => ({
   type: ADD_TASK_FAILURE,
   payload: error,
 });
@@ -30,12 +35,12 @@ export const editTask = () => ({
   type: EDIT_TASK_REQUEST,
 });
 
-export const signupSuccess = (user: any) => ({
+export const editTaskSuccess = (user: any) => ({
   type: EDIT_TASK_SUCCESS,
   payload: user,
 });
 
-export const signupFailure = (error: any) => ({
+export const editTaskFailure = (error: any) => ({
   type: EDIT_TASK_FAILURE,
   payload: error,
 });

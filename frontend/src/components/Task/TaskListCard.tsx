@@ -2,14 +2,16 @@
 import React from "react";
 
 interface TaskListCardProps {
+  id: number
   title: string;
   description: string;
   dueDate: string;
   isOpenDeleteModal: () => void;
-  showTaskModal: () => void;
+  showTaskModal: (isEdit:boolean, id: number) => void;
 }
 
 const TaskListCard: React.FC<TaskListCardProps> = ({
+  id,
   title,
   description,
   dueDate,
@@ -32,7 +34,7 @@ const TaskListCard: React.FC<TaskListCardProps> = ({
         src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png"
       />
       <img
-        onClick={showTaskModal}
+        onClick={() => showTaskModal(true, id)}
         className="w-5 h-5 cursor-pointer"
         alt="edit"
         src="https://icon-library.com/images/edit-icon-images/edit-icon-images-26.jpg"

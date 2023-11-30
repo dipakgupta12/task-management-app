@@ -64,14 +64,14 @@ export const addTaskFields = [
     placeholder: "Enter your title",
   },
   {
-    label: "Descrption",
-    name: "discrption",
+    label: "Description",
+    name: "description",
     type: "text",
-    placeholder: "Enter discrption",
+    placeholder: "Enter description",
   },
 ];
 
 export const addTaskValidationSchema = Yup.object({
   title: Yup.string().required("title is required"),
-  descrption: Yup.string().required("descrption is required"),
+  description: Yup.string().required("description is required"),
 });

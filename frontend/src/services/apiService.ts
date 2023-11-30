@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 const API_BASE_URL = "http://localhost:8080/api";
 
 interface Task {
-  id: string;
   title: string;
   description: string;
 }
@@ -38,7 +37,7 @@ export const authService = {
 };
 
 export const taskService = {
-  addTask: async (task: Task): Promise<Task> => {
+  addTaskApi: async (task: Task) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/tasks/add`, task);
       return response.data;
@@ -47,7 +46,7 @@ export const taskService = {
     }
   },
 
-  editTask: async (task: Task) => {
+  editTask: async (task: any) => {
     try {
       const response = await axios.put(
         `${API_BASE_URL}/api/tasks/edit/${task.id}`,
@@ -56,6 +55,24 @@ export const taskService = {
       return response.data;
     } catch (error) {
       throw new Error("Edit task failed");
+    }
+  },
+
+  getTaskDetails: async (taskId: string) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/tasks/details/${taskId}`);
+      return response.data;
+    } catch (error) {
+      throw new Error("Get task details failed");
+    }
+  },
+
+  getTasksApi: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/tasks`);
+      return response.data;
+    } catch (error) {
+      // throw new Error("Get tasks failed");
     }
   },
 
