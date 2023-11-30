@@ -28,18 +28,18 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-blue-300 p-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="text-cyan-800 md:text-2xl text-md font-bold">
+    <header className="bg-[#01172c] p-4">
+      <div className="container max-w-[1200px] mx-auto flex items-center justify-between">
+        <Link to="/" className="text-[#fff] md:text-2xl text-md font-semibold">
           Task Master
         </Link>
 
         {isAuthenticated || isUserAuthenticated ? (
           <div className="flex justify-center items-center">
-            <p className="ml-2 text-black-500">Welcome, User</p>
+            <p className="ml-2 text-white mr-2">Welcome, User</p>
             <div
               onClick={toggleDropdown}
-              className="cursor-pointer rounded-full w-12 h-12 bg-red-300 flex items-center justify-center text-blue-800 text-2xl font-bold ml-3"
+              className="cursor-pointer rounded-full w-8 h-8 bg-red-300 flex items-center justify-center text-blue-800 text-xl font-bold ml-3"
             >
                {/* {getFirstLetter(user.email)} */}
                A
@@ -60,10 +60,10 @@ const Header: React.FC = () => {
         ) : (
           <div>
             <nav className="space-x-4">
-              <Link to="/signin" className="text-cyan-600">
+              <Link to="/signin" className="text-white">
                 Sign in
               </Link>
-              <Link to="/signup" className="text-cyan-600">
+              <Link to="/signup" className="text-white">
                 Sign up
               </Link>
             </nav>

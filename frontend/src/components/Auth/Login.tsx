@@ -50,8 +50,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center py-6">
-      <div className="bg-gray-50 rounded-md p-6 rounded shadow-md w-60">
+    <div className="flex items-center justify-center py-6 mt-24">
+      <div className="bg-gray-50 rounded-lg p-6 rounded shadow-lg w-60 w-1/3">
         <Heading title="Welcome back" className="text-center mb-5" />
         <CommonForm
           initialValues={formValues}

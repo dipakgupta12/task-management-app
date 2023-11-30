@@ -48,9 +48,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center py-6">
-      <div className="bg-gray-50 rounded-md p-6 rounded shadow-md w-60">
-        <Heading title="Sign up" className="text-center mb-5" />
+    <div className="flex items-center justify-center py-6 mt-10">
+      <div className="bg-gray-50 rounded-md p-6 rounded shadow-md w-1/3">
+        <Heading title="Sign up" className="text-center text-[#01172c] mb-5" />
         <CommonForm
           initialValues={formValues}
           validationSchema={signupValidationSchema}

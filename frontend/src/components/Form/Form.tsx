@@ -36,11 +36,11 @@ const CommonForm = ({
         <Form className={formStyle}>
           {inputFields?.map((field) => (
             <div key={field.name} className="flex flex-col mt-3">
-              <label htmlFor={field.name}>{field.label}</label>
+              <label className="text-sm text-gray-600" htmlFor={field.name}>{field.label}</label>
               <Field
                 type={field.type}
                 id={field.name}
-                className={`border rounded ${
+                className={`border rounded-md p-2 ${
                   errors[field.name] && touched[field.name]
                     ? "border-red-500"
                     : ""
@@ -54,7 +54,7 @@ const CommonForm = ({
               />
             </div>
           ))}
-          <Button type="submit" className={`mt-4 ${buttonStyle}`}>
+          <Button type="submit" className={`mt-4 bg-[#01172c] text-white ${buttonStyle}`}>
             {buttonText}
           </Button>
         </Form>
