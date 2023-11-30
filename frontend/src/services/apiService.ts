@@ -27,10 +27,11 @@ export const authService = {
     }
   },
 
-  signup: async (name: string, password: string): Promise<User> => {
+  signup: async (name: string, email: string, password: string): Promise<User> => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/signup`, {
         name,
+        email,
         password,
       });
       return response.data;
@@ -62,7 +63,7 @@ export const taskService = {
     }
   },
 
-  deleteTask: async (taskId: string): Promise<void> => {
+  deleteTaskApi: async (taskId: string): Promise<void> => {
     try {
       await axios.delete(`${API_BASE_URL}/api/tasks/delete/${taskId}`);
     } catch (error) {

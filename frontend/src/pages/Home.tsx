@@ -3,13 +3,39 @@ import TaskListCard from "../components/Task/TaskListCard";
 import Loader from "../components/Loader/Loader";
 import DeleteModal from "../components/DeleteModal";
 import AddTaskModal from "../components/AddTaskModal";
+import {
+  addTaskFields,
+  addTaskValidationSchema,
+} from "../components/Auth/constants";
+import { deleteTask, deleteTaskFailure, deleteTaskSuccess } from "../redux/actions/taskActions";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { taskService } from "../services/apiService";
 
 const Home = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleDelete = (id: number) => {
+  const formValues = {
+    email: "",
+    password: "",
+  };
+
+  const handleDelete = async (id: number) => {
     // deine delete functionality
+   
+    dispatch(deleteTask());
+    try {
+      // Make API call using Axios
+      const response = await taskService.deleteTaskApi("1");
+      console.log(response);
+      dispatch(deleteTaskSuccess(response));
+      navigate("/");
+    } catch (error: any) {
+      dispatch(deleteTaskFailure(error.message));
+    }
   };
 
   const openisOpenDeleteModal = () => {
@@ -32,9 +58,13 @@ const Home = () => {
       title: "Task 2",
       description: "Description 2",
       dueDate: "2023-12-15",
-    },
-    // Add more tasks as needed
+    },  
   ];
+
+  const onSubmitForm = () => {
+    console.log('=====')
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center w-full p-5">
@@ -69,6 +99,10 @@ const Home = () => {
         isOpen={isOpenTaskModal}
         onCancel={() => setIsOpenTaskModal(false)}
         onDelete={handleDelete}
+        formValues={formValues}
+        addTaskValidationSchema={addTaskValidationSchema}
+        onSubmitForm={onSubmitForm}
+        addTaskFields={addTaskFields}
       />
     </div>
   );

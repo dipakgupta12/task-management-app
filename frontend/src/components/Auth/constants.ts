@@ -55,3 +55,23 @@ export const loginValidationSchema = Yup.object({
     .required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
+
+export const addTaskFields = [
+  {
+    label: "Task Title",
+    name: "title",
+    type: "text",
+    placeholder: "Enter your title",
+  },
+  {
+    label: "Descrption",
+    name: "discrption",
+    type: "text",
+    placeholder: "Enter discrption",
+  },
+];
+
+export const addTaskValidationSchema = Yup.object({
+  title: Yup.string().required("title is required"),
+  descrption: Yup.string().required("descrption is required"),
+});

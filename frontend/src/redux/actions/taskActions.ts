@@ -16,7 +16,7 @@ export const addTask = () => ({
   type: ADD_TASK_REQUEST,
 });
 
-export const loginSuccess = (user: any) => ({
+export const addTaskSuccess = (user: any) => ({
   type: ADD_TASK_SUCCESS,
   payload: user,
 });
