@@ -64,7 +64,7 @@ export const task = {
 
       if (task.length === 0) {
         const response = {
-          message: "Task not found for the specified user",
+          message: "Task not found or deleted",
         };
         return apiResponse.error(res, response, 404);
       }
@@ -92,7 +92,7 @@ export const task = {
 
       if (existingTask.length === 0) {
         const response = {
-          message: "Task not found for the specified user",
+          message: "Task not found or deleted",
         };
         return apiResponse.error(res, response, 404);
       }
@@ -104,6 +104,38 @@ export const task = {
 
       const response = {
         message: "Task updated successfully",
+      };
+
+      return apiResponse.success(res, response);
+    } catch (error) {
+      return apiResponse.error(res, { error });
+    }
+  },
+
+  deleteTaskController: async (req, res) => {
+    try {
+      const taskId = req.params?.taskId;
+      const userId = req.params?.userId;
+
+      const [existingTask] = await db.execute(
+        "SELECT * FROM tasks WHERE id = ? AND user_id = ?",
+        [taskId, userId]
+      );
+
+      if (existingTask.length === 0) {
+        const response = {
+          message: "Task not found or already deleted",
+        };
+        return apiResponse.error(res, response, 404);
+      }
+
+      await db.execute("DELETE FROM tasks WHERE id = ? AND user_id = ?", [
+        taskId,
+        userId,
+      ]);
+
+      const response = {
+        message: "Task deleted successfully",
       };
 
       return apiResponse.success(res, response);

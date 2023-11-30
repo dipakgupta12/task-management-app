@@ -31,4 +31,10 @@ taskRouter.put(
   taskControllers.updateTaskController
 );
 
+taskRouter.delete(
+  "/:taskId",
+  authMiddleWare.authenticateToken,
+  taskControllers.deleteTaskController
+);
+
 export default taskRouter;
