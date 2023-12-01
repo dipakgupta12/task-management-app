@@ -72,6 +72,6 @@ export const addTaskFields = [
 ];
 
 export const addTaskValidationSchema = Yup.object({
-  title: Yup.string().required("title is required"),
-  description: Yup.string().required("description is required"),
+  title: Yup.string().required("Title is required").max(225, "Title must be at most 255 characters"),
+  description: Yup.string().required("Description is required"),
 });
