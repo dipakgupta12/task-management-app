@@ -34,6 +34,19 @@ export const authService = {
       toast.error(error.response.data.data.message)
     }
   },
+
+  getUserProfile: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/auth/user-details`, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken"),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error("Get task details failed");
+    }
+  },
 };
 
 export const taskService = {
@@ -54,8 +67,13 @@ export const taskService = {
   editTask: async (task: any) => {
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/api/tasks/edit/${task.id}`,
-        task
+        `${API_BASE_URL}/task/${task.id}`,
+        task,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken"),
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -63,11 +81,13 @@ export const taskService = {
     }
   },
 
-  getTaskDetails: async (taskId: string) => {
+  getTaskDetails: async (taskId: number) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/api/tasks/details/${taskId}`
-      );
+      const response = await axios.get(`${API_BASE_URL}/task/${taskId}`, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken"),
+        },
+      });
       return response.data;
     } catch (error) {
       throw new Error("Get task details failed");

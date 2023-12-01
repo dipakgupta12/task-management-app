@@ -31,6 +31,7 @@ const CommonForm = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize={true}
     >
       {({ errors, touched }) => (
         <Form className={formStyle}>

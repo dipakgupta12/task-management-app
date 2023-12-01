@@ -11,6 +11,7 @@ import {
   DELETE_TASK_SUCCESS,
   DELETE_TASK_FAILURE,
   GET_TASK_REQUEST,
+  GET_USER_REQUEST
 } from "./actionTypes";
 
 export const getTasks = () => ({
@@ -24,6 +25,11 @@ export const addTask = () => ({
 export const addTaskSuccess = (user: any) => ({
   type: ADD_TASK_SUCCESS,
   payload: user,
+});
+
+export const getUserProfileRequest = (data: any) => ({
+  type: GET_USER_REQUEST,
+  payload: data,
 });
 
 export const addTaskFailure = (error: any) => ({

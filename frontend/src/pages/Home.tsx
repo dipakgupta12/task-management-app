@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { taskService } from "../services/apiService";
 import { toast } from "react-toastify";
 import Heading from "../components/Heading";
+import NodataFound from "../components/NodataFound";
 
 interface Task {
   id: number;
@@ -35,6 +36,7 @@ const Home = () => {
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [onEditState, setOnEditState] = useState(false);
   const [taskId, setOnTaskId] = useState<number>();
+  const [editTaskForm, setEditTaskForm] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,10 +49,6 @@ const Home = () => {
   useEffect(() => {
     getTaskApi();
   }, []);
-
-  useEffect(() => {
-    console.log("taskId----", taskId);
-  }, [taskId]);
 
   const getTaskApi = async () => {
     dispatch(getTasks());
@@ -78,10 +76,19 @@ const Home = () => {
     setOnTaskId(id);
   };
 
-  const showTaskModal = (isEdit: boolean, id?: number) => {
-    setIsOpenTaskModal(true);
+  const showTaskModal = async (isEdit: boolean, id?: number) => {
     setOnTaskId(id);
     setOnEditState(isEdit);
+
+    if (isEdit && id !== undefined) {
+      const res = await taskService.getTaskDetails(id);
+      setEditTaskForm({
+        title: res?.data?.task?.title,
+        description: res?.data?.task?.description,
+      });
+    }
+
+    setIsOpenTaskModal(true);
   };
 
   const onSubmitForm = async (
@@ -94,6 +101,18 @@ const Home = () => {
       description: values.description,
     };
     try {
+      if (onEditState) {
+        const response = await taskService.editTask({ ...task, id: taskId });
+        if (response.success) {
+          dispatch(addTaskSuccess(response.data));
+          getTaskApi();
+          toast.success(`${response.data.message}`);
+          navigate("/");
+          setIsOpenTaskModal(false);
+          resetForm();
+        }
+        return;
+      }
       const response = await taskService.addTaskApi(task);
       if (response.success) {
         dispatch(addTaskSuccess(response.data));
@@ -122,9 +141,10 @@ const Home = () => {
       <div className="max-w-[1240px] mx-auto">
         <div className="flex flex-wrap gap-5 items-center">
           {taskList?.length === 0 ? (
-            <Loader />
+            <NodataFound />
           ) : (
-            taskList.map((task) => (
+            taskList?.length > 0 &&
+            taskList?.map((task) => (
               <TaskListCard
                 id={task?.id}
                 key={task?.id}
@@ -148,7 +168,7 @@ const Home = () => {
         isOpen={isOpenTaskModal}
         onCancel={() => setIsOpenTaskModal(false)}
         onSubmitForm={onSubmitForm}
-        formValues={formValues}
+        formValues={!onEditState ? formValues : editTaskForm}
         addTaskValidationSchema={addTaskValidationSchema}
         addTaskFields={addTaskFields}
         onEdit={onEditState}

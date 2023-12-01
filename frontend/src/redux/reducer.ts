@@ -7,6 +7,7 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
   LOGOUT,
+  GET_USER_REQUEST,
 } from "./actions/actionTypes";
 
 const initialState = {
@@ -26,6 +27,13 @@ export const authReducer = (state = initialState, action: any) => {
         error: null,
       };
     case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      };
+    case GET_USER_REQUEST:
       return {
         ...state,
         user: action.payload,

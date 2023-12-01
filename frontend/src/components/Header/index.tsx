@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions/userActions";
 import { allImages } from "../../utils/constants";
+import { getUser } from "../../utils";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -44,12 +45,14 @@ const Header: React.FC = () => {
 
         {isAuthenticated || isUserAuthenticated ? (
           <div className="flex justify-center items-center relative">
-            <p className="ml-2 text-white mr-2">Welcome, User</p>
+            <p className="ml-2 text-white mr-2">
+              Welcome, {getUser()?.user?.name}
+            </p>
             <div
               onClick={toggleDropdown}
               className="cursor-pointer rounded-full w-8 h-8 bg-red-300 flex items-center justify-center text-blue-800 text-xl font-bold ml-3"
             >
-              {/* {getFirstLetter(user.email)} */}A
+              {getUser() !== null && getFirstLetter(getUser()?.user?.name)}
             </div>
             {isDropdownOpen && (
               <div className="absolute top-12 right-0 bg-white border rounded shadow-md w-48 z-50">

@@ -24,7 +24,7 @@ const AllRoutes = () => {
       <Route path="/" element={isAuthenticated || isUserAuthenticated ? <Home /> : <Navigate to="/signin" />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={isAuthenticated || isUserAuthenticated ? <Profile /> : <Navigate to="/signin" />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
