@@ -153,6 +153,7 @@ const Home = () => {
                 dueDate={task?.created_at}
                 isOpenDeleteModal={openisOpenDeleteModal}
                 showTaskModal={showTaskModal}
+                // viewTask=
               />
             ))
           )}

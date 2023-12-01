@@ -6,6 +6,7 @@ import Login from "./components/Auth/Login";
 import NotFound from "./pages/404";
 import { useSelector } from "react-redux";
 import { Profile } from "./pages/Profile";
+import ViewTask from "./pages/ViewTask";
 
 const AllRoutes = () => {
   const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
@@ -25,6 +26,7 @@ const AllRoutes = () => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<Login />} />
       <Route path="/profile" element={isAuthenticated || isUserAuthenticated ? <Profile /> : <Navigate to="/signin" />} />
+      <Route path="/view-task/:taskId" element={isAuthenticated || isUserAuthenticated ? <ViewTask /> : <Navigate to="/signin" />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

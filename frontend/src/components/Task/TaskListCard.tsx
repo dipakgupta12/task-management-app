@@ -2,6 +2,7 @@
 import React from "react";
 import { timeConverter, toTitleCase, truncateText } from "../../utils";
 import { allImages } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 interface TaskListCardProps {
   id: number;
@@ -20,6 +21,7 @@ const TaskListCard: React.FC<TaskListCardProps> = ({
   isOpenDeleteModal,
   showTaskModal,
 }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white relative w-[23.5%] h-[200px] p-4 shadow-lg  rounded-lg border border-gray-100 mb-4">
       <h3 className="text-lg font-semibold mb-2">
@@ -33,6 +35,12 @@ const TaskListCard: React.FC<TaskListCardProps> = ({
         {timeConverter(dueDate)}
       </p>
       <div className="absolute bottom-4 flex justify-center item-center right-5 gap-2">
+        <img
+          onClick={() => navigate(`/view-task/${id}`)}
+          className="w-7 h-6 cursor-pointer"
+          alt="delete"
+          src={allImages.viewTask}
+        />
         <img
           onClick={() => isOpenDeleteModal(id)}
           className="w-6 h-6 cursor-pointer"
