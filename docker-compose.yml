@@ -1,0 +1,50 @@
+version: "3"
+services:
+  frontend:
+    build: frontend
+    depends_on:
+      - api
+    tty: true
+    volumes:
+      - ./frontend/public:/frontend/public:cached,ro
+      - ./frontend/src:/frontend/src:cached,ro
+    ports:
+      - "3000:3000"
+    networks:
+      - task-management-app
+
+  api:
+    build: backend
+    depends_on:
+      - mysqldb
+    tty: true
+    volumes:
+      - ./backend/bin:/backend/bin:cached,ro
+      - ./backend/src:/backend/src:cached,ro
+    ports:
+      - "8080:8080"
+    networks:
+      - task-management-app
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - task-management-app
+      
+networks:
+  task-management-app:
+    driver: bridge
+
+volumes:
+  db:

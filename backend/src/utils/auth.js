@@ -1,15 +1,29 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 export const hashAuth = {
-  hashPassword: async (password) => {
-    const salt = await bcrypt.genSaltSync(11);
-    const hashedPassword = await bcrypt.hashSync(password, salt);
+   hashPassword : async (password) => {
+    const salt = await crypto.randomBytes(16).toString('hex');
+    const hashedPassword = await new Promise((resolve, reject) => {
+      crypto.pbkdf2(password, salt, 1000, 64, 'sha512', (err, derivedKey) => {
+        if (err) reject(err);
+        else resolve(derivedKey.toString('hex'));
+      });
+    });
+    console.log("hash auth", salt, password,hashedPassword)
     return hashedPassword;
   },
-
-  passwordMatch: async (password, hashPassword) => {
-    return await bcrypt.compare(password, hashPassword);
+  
+   passwordMatch : async (password, hashedPassword) => {
+    const [salt, storedHash] = hashedPassword.split(':');
+    const derivedKey = await new Promise((resolve, reject) => {
+      crypto.pbkdf2(password, salt, 1000, 64, 'sha512', (err, key) => {
+        if (err) reject(err);
+        else resolve(key.toString('hex'));
+      });
+    });
+    console.log("getting inm match", password, hashedPassword, storedHash, salt)
+    return derivedKey === storedHash;
   },
 
   generateToken: (payload) => {

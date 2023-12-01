@@ -2,7 +2,7 @@ import mysql from "mysql2";
 
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: "localhost",
+  host: "mysqldb",
   user: "root",
   password: "root",
   database: "test",

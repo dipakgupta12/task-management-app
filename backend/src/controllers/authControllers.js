@@ -5,13 +5,13 @@ export const auth = {
     try {
       const { name, email, password } = req.body;
       const hashedPassword = await hashAuth.hashPassword(password);
-  
+      
       await db.execute(`
         CREATE TABLE IF NOT EXISTS users (
           id INT AUTO_INCREMENT PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
           email VARCHAR(255) UNIQUE NOT NULL,
-          password VARCHAR(255) NOT NULL
+                    password VARCHAR(255) NOT NULL
         )
       `);
   
@@ -36,7 +36,7 @@ export const auth = {
       };
       return apiResponse.success(res, successResponse);
     } catch (error) {
-      return apiResponse.error(res, { error });
+            return apiResponse.error(res, { error });
     }
   },
 
@@ -56,7 +56,7 @@ export const auth = {
       }
 
       const user = existingUsers[0];
-      const isPasswordValid = await hashAuth.passwordMatch(
+            const isPasswordValid = await hashAuth.passwordMatch(
         password,
         user.password
       );
