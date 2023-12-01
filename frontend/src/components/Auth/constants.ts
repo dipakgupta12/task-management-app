@@ -58,7 +58,7 @@ export const loginValidationSchema = Yup.object({
 
 export const addTaskFields = [
   {
-    label: "Task Title",
+    label: "Task title",
     name: "title",
     type: "text",
     placeholder: "Enter your title",

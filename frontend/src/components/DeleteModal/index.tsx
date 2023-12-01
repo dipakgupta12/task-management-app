@@ -13,7 +13,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ isOpen, onCancel, onDelete ,t
       <div className="absolute inset-0 bg-gray-800 opacity-75"></div>
       <div className="relative bg-white rounded-lg p-8 w-96">
         <h2 className="text-2xl font-semibold mb-4 text-center text-[#01172c]">
-          Confirm Deletion
+          Confirm deletion
         </h2>
         <p className="text-center">
           Are you sure you want to delete this item?

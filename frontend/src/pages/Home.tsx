@@ -130,12 +130,12 @@ const Home = () => {
   return (
     <div className="max-w-[1200px] mx-auto">
       <div className="flex justify-between items-center w-full py-5">
-        <Heading title="All Tasks" className="" />
+        <Heading title="All tasks" className="" />
         <button
           className=" px-4 py-2 text-white bg-[#01172c] rounded-md"
           onClick={() => showTaskModal(false)}
         >
-          + Add Task
+          + Add task
         </button>
       </div>
       <div className="max-w-[1240px] mx-auto">

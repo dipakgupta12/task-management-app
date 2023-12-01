@@ -38,9 +38,10 @@ const Header: React.FC = () => {
       <div className="container max-w-[1200px] mx-auto flex items-center justify-between">
         <Link
           to={isUserAuthenticated ? "/" : "/signin"}
-          className="text-[#fff] md:text-2xl text-md font-semibold"
+          className="text-[#fff] md:text-2xl text-md font-semibold flex items-center gap-1"
         >
-          Task Master
+          <img className="w-16" src={allImages.brandLogo} alt="logo" />
+          <span>Master</span>
         </Link>
 
         {isAuthenticated || isUserAuthenticated ? (
@@ -50,24 +51,13 @@ const Header: React.FC = () => {
             </p>
             <div
               onClick={toggleDropdown}
-              className="cursor-pointer rounded-full w-8 h-8 bg-red-300 flex items-center justify-center text-blue-800 text-xl font-bold ml-3"
+              className="cursor-pointer rounded-full w-8 h-8 bg-white shadow-sm flex items-center justify-center text-blue-800 text-xl font-bold ml-3"
             >
               {getUser() !== null && getFirstLetter(getUser()?.user?.name)}
             </div>
             {isDropdownOpen && (
               <div className="absolute top-12 right-0 bg-white border rounded shadow-md w-48 z-50">
                 <ul>
-                  <li
-                    className=" p-4 pl-6 flex gap-4 text-lg cursor-pointer border-b border-gray-100 items-center"
-                    onClick={handleLogout}
-                  >
-                    <img
-                      alt="logout"
-                      src={allImages.logOut}
-                      className="w-5 h-5"
-                    ></img>
-                    <span>Logout</span>
-                  </li>
                   <li
                     className="p-4 pl-6 cursor-pointer flex gap-4 text-lg items-center"
                     onClick={openProfile}
@@ -78,6 +68,17 @@ const Header: React.FC = () => {
                       className="w-6 h-6"
                     ></img>
                     Profile
+                  </li>
+                  <li
+                    className=" p-4 pl-6 flex gap-4 text-lg cursor-pointer border-b border-gray-100 items-center"
+                    onClick={handleLogout}
+                  >
+                    <img
+                      alt="logout"
+                      src={allImages.logOut}
+                      className="w-5 h-5"
+                    ></img>
+                    <span>Logout</span>
                   </li>
                 </ul>
               </div>

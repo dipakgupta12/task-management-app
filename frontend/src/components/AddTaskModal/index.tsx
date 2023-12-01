@@ -1,6 +1,7 @@
 import React from "react";
 import CommonForm from "../Form/Form";
 import Heading from "../Heading";
+import { buttonType } from "../../utils/constants";
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -9,7 +10,7 @@ interface DeleteModalProps {
   formValues: {};
   addTaskValidationSchema?: any;
   addTaskFields: any;
-  onEdit: boolean
+  onEdit: boolean;
 }
 
 const AddTaskModal: React.FC<DeleteModalProps> = ({
@@ -19,9 +20,8 @@ const AddTaskModal: React.FC<DeleteModalProps> = ({
   addTaskValidationSchema,
   addTaskFields,
   onSubmitForm,
-  onEdit
+  onEdit,
 }) => {
-
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center z-50 ${
@@ -30,24 +30,24 @@ const AddTaskModal: React.FC<DeleteModalProps> = ({
     >
       <div className="absolute inset-0 bg-gray-800 opacity-75"></div>
       <div className="relative bg-white rounded-lg p-8 w-96">
-        <Heading title={!onEdit ? "Add Task" : "Edit task"} />
+        <div className="flex justify-between relative">
+          <Heading title={!onEdit ? "Add Task" : "Edit task"} />
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/6559/6559068.png"
+            onClick={onCancel}
+            alt="cancel"
+            className="w-8 absolute right-[-20px] top-[-20px] cursor-pointer"
+          ></img>
+        </div>
         <CommonForm
           initialValues={formValues}
           validationSchema={addTaskValidationSchema}
           onSubmit={onSubmitForm}
           inputFields={addTaskFields}
           formStyle="flex flex-col"
-          buttonText="Add"
-          buttonStyle="bg-blue-300  py-2 border-blue-500"
+          buttonText={onEdit ? "Update task" : "Add task"}
+          buttonStyle={buttonType.primary}
         />
-        <div className="mt-6 flex justify-end w-full">
-          <button
-            className="px-4 w-full rounded-full py-2 text-gray-600 border border-gray-300 hover:border-gray-400"
-            onClick={onCancel}
-          >
-            Cancel
-          </button>
-        </div>
       </div>
     </div>
   );
