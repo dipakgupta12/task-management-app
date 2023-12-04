@@ -46,7 +46,7 @@ const Header: React.FC = () => {
 
         {isAuthenticated || isUserAuthenticated ? (
           <div className="flex justify-center items-center relative">
-            <p className="ml-2 text-white mr-2">
+            <p className="ml-2 text-white mr-2 hidden sm:inline">
               Welcome, {getUser()?.user?.name}
             </p>
             <div

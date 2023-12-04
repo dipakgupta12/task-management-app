@@ -1,5 +1,3 @@
-// Example usage
-
 import React, { useEffect } from "react";
 import CommonForm from "../Form/Form";
 import { loginFields, loginValidationSchema } from "./constants";
@@ -68,7 +66,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center py-6 mt-10">
-      <div className="bg-gray-50 rounded-md p-6 shadow-md w-1/3">
+      <div className="bg-gray-50 rounded-md p-6 shadow-md md:w-1/3 sm:2/3 w-full mx-3">
         <Heading title="Sign in" className="text-center mb-5" />
         <CommonForm
           initialValues={formValues}

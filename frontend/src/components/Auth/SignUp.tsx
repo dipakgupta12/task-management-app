@@ -51,7 +51,7 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center py-6 mt-10">
-      <div className="bg-gray-50 rounded-md p-6 shadow-md w-1/3">
+      <div className="bg-gray-50 rounded-md p-6 shadow-md md:w-1/3 sm:2/3 w-full mx-3">
         <Heading title="Sign up" className="text-center text-[#01172c] mb-5" />
         <CommonForm
           initialValues={formValues}
