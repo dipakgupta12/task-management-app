@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TaskListCard from "../components/Task/TaskListCard";
-import Loader from "../components/Loader/Loader";
 import DeleteModal from "../components/DeleteModal";
 import AddTaskModal from "../components/AddTaskModal";
 import {
@@ -48,6 +47,7 @@ const Home = () => {
 
   useEffect(() => {
     getTaskApi();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getTaskApi = async () => {
@@ -129,7 +129,7 @@ const Home = () => {
 
   return (
     <div className="max-w-[1200px] mx-auto">
-      <div className="flex justify-between items-center w-full py-5">
+      <div className="flex justify-between items-center w-full py-5  px-4">
         <Heading title="All tasks" className="" />
         <button
           className=" px-4 py-2 text-white bg-[#01172c] rounded-md"
@@ -139,7 +139,7 @@ const Home = () => {
         </button>
       </div>
       <div className="max-w-[1240px] mx-auto">
-        <div className="flex flex-wrap gap-5 items-center">
+        <div className="flex flex-wrap items-center">
           {taskList?.length === 0 ? (
             <NodataFound />
           ) : (
@@ -153,7 +153,6 @@ const Home = () => {
                 dueDate={task?.created_at}
                 isOpenDeleteModal={openisOpenDeleteModal}
                 showTaskModal={showTaskModal}
-                // viewTask=
               />
             ))
           )}
