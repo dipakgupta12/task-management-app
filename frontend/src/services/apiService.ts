@@ -1,4 +1,4 @@
-// apiService.ts
+// apiService file
 import axios from "axios";
 import { toast } from "react-toastify";
 
