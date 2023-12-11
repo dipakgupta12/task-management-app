@@ -25,11 +25,9 @@ services:
       - "8080:8080"
     networks:
       - task-management-app
-    depends_on:
-      - mysqldb
 
   mysqldb:
-    image: mysql:5.7
+    image: mysql:8.0
     restart: unless-stopped
     env_file: ./.env
     environment:

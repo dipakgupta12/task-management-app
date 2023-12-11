@@ -63,6 +63,7 @@ const Home = () => {
     try {
       const response = await taskService.deleteTaskApi(id);
       dispatch(deleteTaskSuccess(response));
+      toast.success(`Task deleted successfully`);
       getTaskApi();
       setIsOpenDeleteModal(false);
       navigate("/");
